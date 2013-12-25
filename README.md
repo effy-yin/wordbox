@@ -1,16 +1,20 @@
-## About
 可以使用jquery.wordbox.js轻松创建当下流行的分类标签。
+## About
+jquery.wordbox.js makes it easy to create category tags and classify labels.
 ## Usage
 1. Include jQuery and jquery.wordbox.js
+
 ```html
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="jquery.wordbox.js"></script>
 ```
 2. Create a HTML tag to hold the wordbox
+
 ```html
 <div id="wordbox"></div>
 ```
-2. Call wordbox()
+3. Call wordbox()
+
 ```JavaScript
 $("#wordbox").wordbox({
     options
@@ -18,7 +22,7 @@ $("#wordbox").wordbox({
 ```
 
 ## Options
-To customize scrollIt.js, simply pass in an options object: (defaults shown)
+To customize jquery.wordbox.js, simply pass in an options object:
 ```JavaScript
     var fontSize = 14;
     var titles = ['JavaScript', 'CSS', 'HTML', 'HTML5', 'SVG', 'PHP', 'Python', 'Shell', 'WebGL'];
@@ -44,7 +48,7 @@ To customize scrollIt.js, simply pass in an options object: (defaults shown)
 ```
 
 ## Credit
-Created by @dodo糯, weibo(http://weibo.com/dodoroy)
+Created by [@dodo糯, blog](http://weibo.com/dodoroy), *[blog](http://effy-y.com)*
 
 Feel free to use, share and fork.
 
