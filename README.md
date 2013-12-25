@@ -2,18 +2,18 @@
 ## About
 jquery.wordbox.js makes it easy to create category tags and classify labels.
 ## Usage
-1. Include jQuery and jquery.wordbox.js
+1.Include jQuery and jquery.wordbox.js
 
 ```html
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="jquery.wordbox.js"></script>
 ```
-2. Create a HTML tag to hold the wordbox
+2.Create a HTML tag to hold the wordbox
 
 ```html
 <div id="wordbox"></div>
 ```
-3. Call wordbox()
+3.Call wordbox()
 
 ```JavaScript
 $("#wordbox").wordbox({
@@ -34,7 +34,7 @@ To customize jquery.wordbox.js, simply pass in an options object:
         }
     }
     var colors = ['#cc5b34', '#c27c4d'];
-    $("#wordBox").wordbox({
+    $("#wordbox").wordbox({
         isLead: false,          
         leadWord: null,
         words: words,
@@ -48,7 +48,7 @@ To customize jquery.wordbox.js, simply pass in an options object:
 ```
 
 ## Credit
-Created by [@dodo糯, blog](http://weibo.com/dodoroy), *[blog](http://effy-y.com)*
+Created by [@dodo糯](http://weibo.com/dodoroy), *[blog](http://effy-y.com)*
 
 Feel free to use, share and fork.
 
