@@ -1,0 +1,11 @@
+.wordbox {
+    position: relative;
+}
+.box {
+    position: absolute;
+    text-align: center;
+}
+.box a {
+    text-decoration: none;
+    color: #fff;
+}

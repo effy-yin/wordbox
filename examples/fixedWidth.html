@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>wordbox demo - fixed width</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+    <div id="wordBox"></div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery.wordbox.js"></script>
+    <script type="text/javascript">
+
+    var fontSize = 14;
+    var titles = ['JavaScript', 'CSS', 'HTML', 'HTML5', 'SVG', 'PHP', 'Python', 'Shell', 'WebGL'];
+    var words = [];
+    for(var i = 0; i < titles.length; i++) {
+        words[i] = {
+            "title" : titles[i],
+            "url" : ""
+        }
+    }
+    var colors = ['#cc5b34', '#c27c4d'];
+    $("#wordBox").wordbox({
+        isLead: false,          //是否包含“全部”分类
+        leadWord: null,
+        words: words,
+        colors: colors,
+        borderWidth: 2,
+        isFixedWidth: true,
+        width: 800,
+        height: 200,
+        fontSize: fontSize  
+    });
+
+    $(".box").hover(function(event) {            
+        $(this).css("fontSize", "1.4em");
+        event.stopPropagation();
+    }, function(event) {
+        $(this).css("fontSize", fontSize + "px");
+        event.stopPropagation();
+    })
+    </script>
+</body>
+</html>
