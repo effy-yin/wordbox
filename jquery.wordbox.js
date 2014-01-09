@@ -1,7 +1,7 @@
 (function(window, $){
 
-    $.wordbox = function (options, element) {
-        this.$element = element
+    $.wordbox = function ($element, options) {
+        this.$element = $element
 
         if(!this._create(options)) {
             this.failed = true;
@@ -50,34 +50,16 @@
             else {
                 this.$element.width(this.$element.parent().width());
                 this.$element.height(this.$element.parent().height());
-            }
+            }           
 
-            this.fontSize = opts.fontSize ? opts.fontSize : $element.css("fontSize");
+            this.fontSize = opts.fontSize ? opts.fontSize : this.$element.css("fontSize");
 
-            this._fillRect(this.$element, this.words, opts);
-       
+            this._fillRect(this.$element, this.words, opts);       
+            
+            this.$element.css("fontSize", this.fontSize);
+
             return true;
         },
-
-        //随机排列数组元素，若priority为true，则返回数组arr前wordnum个元素
-        _randArray: function(array, priority) {
-            var clone = array.slice();
-            if(priority) {
-                return clone;
-            } else {
-                var ret = [], rand;
-                for(var i = 0, len = array.length; i < len; i++) {
-                    rand = Math.floor(Math.random() * clone.length);
-                    tmp = clone[0];
-                    clone[0] = clone[rand];
-                    clone[rand] = tmp;
-                    ret.push(clone[0]);
-                    clone = clone.slice(1);
-                }
-                return ret;
-            }
-        },
-
 
         _fillRect: function(wrapper, words) {
             var num = words.length,
@@ -164,12 +146,6 @@
             }
         },
 
-        _getNextColor: function() {
-            var color = this.colors[this.colorPos % this.colors.length];
-            this.colorPos++;
-            return color;
-        },
-        
         _createBox: function(option) {
             var width = option.borderR ? option.width - this.borderWidth : option.width,
                 height = option.borderB ? option.height - this.borderWidth : option.height,
@@ -181,29 +157,29 @@
                     var line = Math.ceil(wordW / width);
                     lineHeight = this.fontSize;
                     var paddingTop = Math.max(0, (height - line * lineHeight) / 2);
+                    height -= paddingTop;
                 }
+                var html = '<div class="box" style="width:' + width + 'px;'
+                    + 'height:' + height + 'px;'
+                    + 'line-height:'+ lineHeight + 'px;'
+                    + 'top:' + option.top + 'px;'
+                    + 'left:' + option.left + 'px;'
+                    + (option.color ? ('background-color:' + option.color + ';') : '')
+                    + (option.borderR ? 'border-right:' + this.borderWidth + 'px solid #fff;' : '')
+                    + (option.borderB ? 'border-bottom:' + this.borderWidth + 'px solid #fff;' : '')
+                    + (paddingTop ? ('padding-top:' + paddingTop + 'px;') : '')
+                    + '">' + '<a href="'+option.word.url+'" >'+option.word.title + '</a></div>';
+            } else {
+                var html = '<div class="box" style="width:' + width + 'px;'
+                    + 'height:' + height + 'px;'               
+                    + 'top:' + option.top + 'px;'
+                    + 'left:' + option.left + 'px;'
+                    + (option.borderR ? 'border-right:' + this.borderWidth + 'px solid #fff;' : '')
+                    + (option.borderB ? 'border-bottom:' + this.borderWidth + 'px solid #fff;' : '')               
+                    + '"></div>';
             }
-            
-            var html = '<div class="box" style="width:' + width + 'px;'
-                + 'height:' + height + 'px;'
-                + 'line-height:'+ lineHeight + 'px;'
-                + 'top:' + option.top + 'px;'
-                + 'left:' + option.left + 'px;'
-                + (option.color ? ('background-color:' + option.color + ';') : '')
-                + (option.borderR ? 'border-right:' + this.borderWidth + 'px solid #fff;' : '')
-                + (option.borderB ? 'border-bottom:' + this.borderWidth + 'px solid #fff;' : '')
-                + (paddingTop ? ('padding-top:' + paddingTop + 'px;') : '')
-                + '">' + '<a href="'+option.word.url+'" '+fontSize+' >'+option.word.title + '</a></div>';
 
             return html;
-        },
-
-        _getWordsWidth: function(word) {
-            if($('#get_ww').size() < 1) {
-                $('<div id="get_ww" style="display:block;visibility:hidden;"><span></span></div>').appendTo('body');
-            }
-            $('#get_ww span').html(word);
-            return $('#get_ww span').width();
         },
 
         _randRange: function(num, base, round) {        
@@ -215,11 +191,44 @@
                 max = center * (1 + round),
                 rand = Math.random() * (max - min) + min;
             return [rand].concat(this._randRange(num - 1, base - rand, round));
+        },
+
+        //随机排列数组元素，若priority为true，则返回数组arr前wordnum个元素
+        _randArray: function(array, priority) {
+            var clone = array.slice();
+            if(priority) {
+                return clone;
+            } else {
+                var ret = [], rand;
+                for(var i = 0, len = array.length; i < len; i++) {
+                    rand = Math.floor(Math.random() * clone.length);
+                    tmp = clone[0];
+                    clone[0] = clone[rand];
+                    clone[rand] = tmp;
+                    ret.push(clone[0]);
+                    clone = clone.slice(1);
+                }
+                return ret;
+            }
+        },
+
+        _getNextColor: function() {
+            var color = this.colors[this.colorPos % this.colors.length];
+            this.colorPos++;
+            return color;
+        },
+
+        _getWordsWidth: function(word) {
+            if($('#get_ww').size() < 1) {
+                $('<div id="get_ww" style="display:block;visibility:hidden;font-size:'+this.fontSize+'px"><span></span></div>').appendTo('body');
+            }
+            $('#get_ww span').html(word);
+            return $('#get_ww span').width();
         }
     };
 
     $.fn.wordbox = function(options) {        
-        var instance = new $.wordbox(options, this);  
+        var instance = new $.wordbox(this, options);  
         if(instance.failed) {
             console.log("创建失败");
             return null;
@@ -233,7 +242,7 @@
                     window.fillTimeout = null;
                 }           
                 window.fillTimeout = setTimeout(function() {
-                    if(instance.$element.width() != instance.$element.parent().width()) {
+                    if(instance.$element.width() != instance.$element.parent().width() || instance.$element.height() != instance.$element.parent().height()) {
                         instance.$element.width(instance.$element.parent().width());
                         instance.$element.height(instance.$element.parent().height());
                         instance._fillRect(instance.$element, instance.words);
