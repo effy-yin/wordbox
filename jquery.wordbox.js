@@ -1,7 +1,7 @@
 (function(window, $){
 
-    $.wordbox = function (options, element) {
-        this.$element = element
+   $.wordbox = function ($element, options) {
+     this.$element = $element
 
         if(!this._create(options)) {
             this.failed = true;
@@ -179,7 +179,7 @@
 
         _getWordsWidth: function(word) {
             if($('#get_ww').size() < 1) {
-                $('<div id="get_ww" style="display:block;visibility:hidden;"><span></span></div>').appendTo('body');
+               $('<div id="get_ww" style="display:block;visibility:hidden;font-size:'+this.fontSize+'px"><span></span></div>').appendTo('body');
             }
             $('#get_ww span').html(word);
             return $('#get_ww span').width();
@@ -202,7 +202,7 @@
     };
 
     $.fn.wordbox = function(options) {        
-        var instance = new $.wordbox(options, this);  
+        var instance = new $.wordbox(this, options); 
         if(instance.failed) {
             console.log("创建失败");
             return null;
@@ -216,7 +216,7 @@
                     window.fillTimeout = null;
                 }           
                 window.fillTimeout = setTimeout(function() {
-                    if(instance.$element.width() != instance.$element.parent().width()) {
+                    if(instance.$element.width() != instance.$element.parent().width() || instance.$element.height() != instance.$element.parent().height()) {
                         instance.$element.width(instance.$element.parent().width());
                         instance.$element.height(instance.$element.parent().height());
                         instance._fillRect(instance.$element, instance.words);
