@@ -1,6 +1,8 @@
-可以使用jquery.wordbox.js轻松创建当下流行的分类标签。
 ## About
 jquery.wordbox.js makes it easy to create category tags and classify labels.
+##Demo
+![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/demo/pic1.png)
+![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/demo/pic2.png)
 ## Usage
 1.Include jQuery and jquery.wordbox.js
 
@@ -17,7 +19,7 @@ jquery.wordbox.js makes it easy to create category tags and classify labels.
 
 ```JavaScript
 $("#wordbox").wordbox({
-    options
+    /*options*/
 });
 ```
 
