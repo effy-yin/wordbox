@@ -55,3 +55,9 @@ Created by [@dodo糯](http://weibo.com/dodoroy), *[blog](http://effy-y.com)*
 Feel free to use, share and fork.
 
 Enjoy!
+
+
+## And
+上面的笨蛋布局逻辑实在写的太烂了，重新写了下，从很烂优化到了有点烂的成都.
+by 张玺 *[zhangxi.me](http://zhangxi.me)*
+
