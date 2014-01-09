@@ -4,6 +4,7 @@
 .box {
     position: absolute;
     text-align: center;
+	border:1px solid #fff;
 }
 .box a {
     color: #fff;
