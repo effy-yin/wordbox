@@ -54,12 +54,17 @@
 
             this.fontSize = opts.fontSize ? opts.fontSize : $element.css("fontSize");
 
-
             this._fillRect(this.$element,
                            this.words,
                            0,
-                           this.words.length);
-            
+                           this.words.length,
+						   0,
+						   0,
+                           parseFloat(this.$element.css("width")),
+                           parseFloat(this.$element.css("height"))
+                           );
+
+            //this._fillRect(this.$element, this.words,0,15);
             return true;
         },
 
@@ -83,79 +88,67 @@
         },
 
      
-        _fillRect: function(wrapper,words,left,right) 
-        {
-            var width  = parseFloat($(wrapper).css("width")),
-                height = parseFloat($(wrapper).css("height"));
 
+        /*
+        _fillRect
+        调整优化逻辑  by zhangxi http://zhangxi.me
+        原来有个小笨蛋写了一串if-else，80多行代码。
+        调整后一对半if-else，40行代码，实际创建box代码只在递归结束的一个地方调用
+        */
+        _fillRect: function(wrapper, words,left,right,x,y,width,height) 
+        {
             if(right-left == 1)
-            {//只剩下一个单词，创建一个box
+            {
+                //创建一个box
                 var div = this._createBox({width: width,
                                           height: height,
-                                             top: 0,
-                                            left: 0,
+                                             top: y,
+                                            left: x,
                                             word: words[left],
                                            color: this._getNextColor(),
                                          borderR: false});
-                $(wrapper).html(div);
+									   
+                $(wrapper).append(div);
 
-            }else if(right-left>1)
-            {//剩下大于两个单词，需要继续分割
-                var separator = this._separator(left,right); //随机分割线
-                var vertical  = !((width/height) >=2.5);     //是否垂直分割
-
-                this._sliceDiv($(wrapper),left,right,separator,vertical); //分割div
-                //填充
-                this._fillRect($(wrapper).children('div')[0],words,left,separator);
-                this._fillRect($(wrapper).children('div')[1],words,separator,right);
-            }
-        },
-
-
-        _sliceDiv: function(wrapper,left,right,separator,vertical) 
-        {
-            var width     = parseFloat(wrapper.css("width")),
-                height    = parseFloat(wrapper.css("height"));
-
-            if(vertical)
+            }else if(left == right)
             {
+				return;
+            }else
+            {
+                //随机分割线
+                var separator = this._separator(left,right);
+                //判断是垂直分割还是水平分割
+                var vertical = !((width/height) >=2.5);
+
+                if(vertical)
+                {
+                //垂直分割，按照比例分高度
                 var leftValue = (separator-left)/(right-left)*height;
                 var rightValue = height-leftValue;
                 
-                var leftDiv  = this._createEmptyBox(0,0,width,leftValue);
-                var rightDiv = this._createEmptyBox(leftValue,0,width,rightValue);
+                //继续分割上半部分
+                this._fillRect(wrapper,words,left,separator,x,y,width,leftValue);
+                //继续分割下半部分
+                this._fillRect(wrapper,words,separator,right,x,y+leftValue,width,rightValue);
 
-                wrapper.append(leftDiv);
-                wrapper.append(rightDiv);
-            }else
-            {
-                var leftValue  = (separator-left)/(right-left)*width;
+                }else
+				{
+				//水平分割，按照比例分宽度
+                var leftValue = (separator-left)/(right-left)*width;
                 var rightValue = width-leftValue;
 
-                var leftDiv  = this._createEmptyBox(0,0,leftValue,height);
-                var rightDiv = this._createEmptyBox(0,leftValue,rightValue,height);
-
-                wrapper.append(leftDiv);
-                wrapper.append(rightDiv);
+                this._fillRect(wrapper,words,left,separator,x,y,leftValue,height);
+                this._fillRect(wrapper,words,separator,right,x+leftValue,y,rightValue,height);
+                }
             }
         },
 
-      
         _getNextColor: function() {
             var color = this.colors[this.colorPos % this.colors.length];
             this.colorPos++;
             return color;
         },
         
-        _createEmptyBox: function(top,left,width,height) {
-        var html = '<div class="empty" style="width:' + width + 'px;'
-                + 'height:' + height + 'px;'
-                + 'top:' + top + 'px;'
-                + 'left:' + left + 'px;" ></div>';
-
-                //wrapper.append(html);
-                return html;
-        },
         _createBox: function(option) {
             var width = option.borderR ? option.width - this.borderWidth : option.width,
                 height = option.borderB ? option.height - this.borderWidth : option.height,
@@ -193,18 +186,18 @@
         },
 
         _separator: function(left, right) {        
-        
+		
             if(left == right) 
-            {
-               return left;
-            }
-            else
-            {
-                var result = parseInt(Math.random() * (right - left)+ left);
-                if(result == left) result ++;
-                if(result == right) result --;
-                return result;
-            }
+			{
+			   return left;
+			}
+			else
+			{
+				var result = parseInt(Math.random() * (right - left)+ left);
+				if(result == left) result ++;
+				if(result == right) result --;
+				return result;
+			}
         }
     };
 
@@ -226,7 +219,7 @@
                     if(instance.$element.width() != instance.$element.parent().width() || instance.$element.height() != instance.$element.parent().height()) {
                         instance.$element.width(instance.$element.parent().width());
                         instance.$element.height(instance.$element.parent().height());
-                        instance._newFillRect(instance.$element, instance.words);
+                        instance._fillRect(instance.$element, instance.words);
                     }
                     
                 }, 200);                 

@@ -1,13 +1,10 @@
 .wordbox {
     position: relative;
 }
-.empty {
-    position: absolute;
-}
 .box {
     position: absolute;
     text-align: center;
-	border:2px solid #fff;
+	border:1px solid #fff;
 }
 .box a {
     color: #fff;
