@@ -44,7 +44,6 @@ To customize jquery.wordbox.js, simply pass in an options object:
         leadWord: null,
         words: words,
         colors: colors,
-        borderWidth: 2,
         isFixedWidth: true,
         width: 800,
         height: 200
