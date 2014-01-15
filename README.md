@@ -47,8 +47,7 @@ To customize jquery.wordbox.js, simply pass in an options object:
         borderWidth: 2,
         isFixedWidth: true,
         width: 800,
-        height: 200,
-        fontSize: fontSize  
+        height: 200
     });
 ```
 
