@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>wordbox demo</title>
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../jquery.wordbox.css">
 
     <style type="text/css">
     .box_wrap {
@@ -29,9 +29,10 @@
     <div id="box_fixedWidth1" class="wordbox"></div>
     <div id="box_fixedWidth2" class="wordbox"></div>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../jquery.wordbox.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../jquery.wordbox.js"></script>
+<script type="text/javascript">
+$(function() {
 
     var titles = ['JavaScript', 'CSS', 'HTML', 'HTML5', 'SVG', 'PHP', 'Python', 'Shell', 'WebGL'];
     var words = [];
@@ -97,7 +98,7 @@
         event.stopPropagation();
     })
 
-    
-    </script>
+});
+ </script>
 </body>
 </html>

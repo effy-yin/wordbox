@@ -1,62 +1,47 @@
 (function(window, $){
 
-    $.wordbox = function ($element, options) {
-        this.$element = $element;
-
-        if(!this._create(options)) {
+    function WordBox($element, settings) {
+        if(!this._create($element, settings)) {
             this.failed = true;
         }
+        return this;
     };
 
-    $.wordbox.defaults = {        
-        isLead: false,          //是否包含“全部”分类
-        leadWord: null,
-        words: null,
-        colors: ['#cc5b34', '#c27c4d'],
-        isFixedWidth: true,
-        width: 1000,
-        height: 200
-    };
+    WordBox.prototype = {
+        $element: null,
+        words: [],
+        colors: [],
+        colorPos: 0,
 
-    $.wordbox.prototype = {
-        /*
-         * this.defaults or $.wordbox.defaults ?? 
-         * defaults对象加在原型链上好还是加在$.wordbox上好？？
-         * defaults: {
+        _create: function($element, settings) {
 
-         * }, 
-        */
-       
-        _create: function(options) {
-            
-            var opts = $.extend({}, $.wordbox.defaults, options);
+            this.$element = $element;    
 
-            if(!this.$element || opts.words.length < 1) {
+            if(!this.$element || settings.words.length < 1) {
                 return false;
             }           
 
-            if(opts.isLead && opts.leadWord) {
-                this.words = [opts.leadWord].concat(this._randArray(opts.words, false));
+            if(settings.isLead && settings.leadWord) {
+                this.words = [settings.leadWord].concat(this._randArray(settings.words, false));
             }
             else {
-                this.words = this._randArray(opts.words, false);
+                this.words = this._randArray(settings.words, false);
             }
 
-            this.colors = opts.colors;  
-            this.colorPos = 0;
+            this.colors = settings.colors;  
             
             //容器宽高初始化
-            this.isFixedWidth = opts.isFixedWidth;
+            this.isFixedWidth = settings.isFixedWidth;
             if(this.isFixedWidth) {
-                this.$element.width(opts.width);
-                this.$element.height(opts.height);
+                this.$element.width(settings.width);
+                this.$element.height(settings.height);
             }
             else {
                 this.$element.width(this.$element.parent().width());
                 this.$element.height(this.$element.parent().height());
             }           
 
-            this._fillRect(this.$element, 
+            this.fillRect(this.$element, 
                             0, 
                             0, 
                             this.$element.width(), 
@@ -69,7 +54,7 @@
         /*
          * 递归创建box
          */
-        _fillRect: function(wrapper, left, top, width, height, words) {
+        fillRect: function(wrapper, left, top, width, height, words) {
             var wordLen = words.length,               
                 ratio = width / height;
 
@@ -100,13 +85,13 @@
                 var leftW = Math.round(width * dot[0]),                    
                     rightW = width - leftW;
 
-                this._fillRect( wrapper, 
+                this.fillRect( wrapper, 
                                 left, 
                                 top, 
                                 leftW, 
                                 height, 
                                 words.slice(0, wordLen1));
-                this._fillRect( wrapper, 
+                this.fillRect( wrapper, 
                                 left+leftW, 
                                 top, 
                                 rightW, 
@@ -117,13 +102,13 @@
                 var topH = Math.round(height * dot[0]),
                     bottomH = height - topH;
 
-                this._fillRect( wrapper, 
+                this.fillRect( wrapper, 
                                 left, 
                                 top, 
                                 width, 
                                 topH, 
                                 words.slice(0, wordLen1));
-                this._fillRect( wrapper, 
+                this.fillRect( wrapper, 
                                 left, 
                                 top+topH, 
                                 width, 
@@ -150,13 +135,13 @@
                 height -= paddingTop;
             }
             var html = '<div class="box" style="width:' + width + 'px;'
-                + 'height:' + height + 'px;'
-                + 'line-height:'+ lineHeight + 'px;'
-                + 'top:' + top + 'px;'
-                + 'left:' + left + 'px;'
-                + 'background-color:' + color + ';'                
-                + (paddingTop ? ('padding-top:' + paddingTop + 'px;') : '')
-                + '">' + '<a href="' + word.url + '" >' + word.title + '</a></div>';          
+                        + 'height:' + height + 'px;'
+                        + 'line-height:'+ lineHeight + 'px;'
+                        + 'top:' + top + 'px;'
+                        + 'left:' + left + 'px;'
+                        + 'background-color:' + color + ';'                
+                        + (paddingTop ? ('padding-top:' + paddingTop + 'px;') : '')
+                        + '">' + '<a href="' + word.url + '" >' + word.title + '</a></div>';          
 
             $(wrapper).append(html);
         },
@@ -165,7 +150,7 @@
          * base:    被分割的数
          * num:     分割的份数         
          * round:   base被分割之后两部分的最大差，为了避免每部分太大或太小
-         * return:  包含num个分界点的数组
+         * 返回值:  包含num个分界点的数组
          */
         _randRange: function(base, num, round) {        
             if(num == 1) {
@@ -179,7 +164,9 @@
         },
 
         
-
+        /*
+         * 每次绘制box时获取color列表中下一个颜色值
+         */
         _getNextColor: function() {
             var color = this.colors[this.colorPos % this.colors.length];
             this.colorPos++;
@@ -187,7 +174,7 @@
         },
 
         /*
-         * 获取指定字体大小的word的宽度
+         * 获取指定字体大小的word的宽度，根据该宽度和box宽度判断是否分行
          */
         _getWordsWidth: function(word) {
             if($('#get_ww').size() < 1) {
@@ -216,32 +203,55 @@
         }
     };
 
-    $.fn.wordbox = function(options) {        
-        var instance = new $.wordbox(this, options);  
+    $.fn.wordbox = function(options) {
+        var defaults = {        
+            isLead: false,          // 是否包含“全部”分类，该lead分类会始终显示在第一个位置上
+            leadWord: null,
+            words: null,
+            colors: ['#cc5b34', '#c27c4d'],
+            isFixedWidth: true,
+            width: 1000,
+            height: 200
+        };
+        var settings = $.extend(false, defaults, options);
+
+        // this为使用该插件的元素
+        var instance = new WordBox(this, settings); 
         if(instance.failed) {
             console.log("创建失败");
             return null;
         }
-     
-        if(!instance.isFixedWidth) {
-            $(window).bind('resize', function() {
-     
+        
+        var $this = this;
+        // 绑定窗口大小改变事件
+        if(!settings.isFixedWidth) {
+            $(window).bind('resize', function() {     
                 if(window.fillTimeout) {
                     clearTimeout(window.fillTimeout);
                     window.fillTimeout = null;
                 }           
                 window.fillTimeout = setTimeout(function() {
-                    if(instance.$element.width() != instance.$element.parent().width() || instance.$element.height() != instance.$element.parent().height()) {
-                        instance.$element.width(instance.$element.parent().width());
-                        instance.$element.height(instance.$element.parent().height());
-                        instance._fillRect(instance.$element, instance.words);
-                    }
-                    
+                    // 响应式wordbox根据外层wrapper宽度和高度的变化来改变自身的宽度和高度，并重新绘制wordbox
+                    if($this.width() != $this.parent().width() || $this.height() != $this.parent().height()) {
+                        $this.width($this.parent().width());
+                        $this.height($this.parent().height());
+                        // 先清除之前绘制的wordbox
+                        $this.empty();
+                        // 重新绘制wordbox
+                        instance.fillRect($this, 
+                                            0,
+                                            0,
+                                            $this.width(), 
+                                            $this.height(),
+                                            instance.words);
+                    }                    
                 }, 200);                 
             });
         }
-        // 返回jquery对象
-        return this;
+
+        // 返回jquery对象 
+        // this指的是应用插件的元素，而不是instance
+        return $(this);
     };
 
 })(window, jQuery);
