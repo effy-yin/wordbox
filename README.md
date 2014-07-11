@@ -29,7 +29,6 @@ $("#wordbox").wordbox({
 ## Options
 To customize jquery.wordbox.js, simply pass in an options object:
 ```JavaScript
-    var fontSize = 14;
     var titles = ['JavaScript', 'CSS', 'HTML', 'HTML5', 'SVG', 'PHP', 'Python', 'Shell', 'WebGL'];
     var words = [];
     for(var i = 0; i < titles.length; i++) {
@@ -51,7 +50,7 @@ To customize jquery.wordbox.js, simply pass in an options object:
 ```
 
 ## Credit
-Created by [@dodo糯](http://weibo.com/dodoroy), *[blog](http://effy-y.com)*
+Created by [@dodo糯](http://weibo.com/dodoroy), *[blog](http://effy.me)*
 
 Feel free to use, share and fork.
 
