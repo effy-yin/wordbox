@@ -134,18 +134,18 @@
             if(wordW > width) {
                 var line = Math.ceil(wordW / width);
                 // 注意设置 line-height 属性和 padding-top 属性
-                lineHeight = this.$wrapper.css('font-size');
+                lineHeight = parseInt(this.$wrapper.css('font-size'));
                 paddingTop = Math.max(0, (height - line * lineHeight) / 2);
                 height -= paddingTop;
             }
-            var html = '<div class="box" style="width:' + width + 'px;'
-                        + 'height:' + height + 'px;'
-                        + 'line-height:'+ lineHeight + 'px;'
-                        + 'top:' + top + 'px;'
-                        + 'left:' + left + 'px;'
-                        + 'background-color:' + color + ';'                
-                        + (paddingTop ? ('padding-top:' + paddingTop + 'px;') : '')
-                        + '">' + '<a href="' + word.url + '" >' + word.title + '</a></div>';          
+            var html = '<div class="box" style="width:' + width + 'px;' +
+                        'height:' + height + 'px;' +
+                        'line-height:'+ lineHeight + 'px;' +
+                        'top:' + top + 'px;' +
+                        'left:' + left + 'px;' +
+                        'background-color:' + color + ';' +             
+                        (paddingTop ? ('padding-top:' + paddingTop + 'px;') : '') +
+                        '">' + '<a href="' + word.url + '" >' + word.title + '</a></div>';          
 
             $(wrapper).append(html);
         },
