@@ -31,8 +31,7 @@
     
             if (this.options.isLead && this.options.leadWord) {
                 this.words = [this.options.leadWord].concat(this._randArray(this.options.words));
-            }
-            else {
+            } else {
                 this.words = this._randArray(this.options.words);
             }
             
