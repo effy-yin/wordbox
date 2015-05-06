@@ -1,4 +1,4 @@
-(function (window, $){
+(function(window, $) {
 
     'use strict';
 
@@ -27,7 +27,7 @@
         colors: [],
         colorPos: 0,
 
-        _create: function () {    
+        _create: function() {    
     
             if (this.options.isLead && this.options.leadWord) {
                 this.words = [this.options.leadWord].concat(this._randArray(this.options.words));
@@ -57,7 +57,7 @@
         /*
          * 递归创建box
          */
-        fillRect: function (wrapper, left, top, width, height, words) {
+        fillRect: function(wrapper, left, top, width, height, words) {
             var wordLen = words.length,               
                 ratio = width / height,
                 dot = this._randRange(1, 2, 0.5),
@@ -124,7 +124,7 @@
          * 创建box
          * @param left、right为box相对于 wrapper 绝对定位的偏移量
          */
-        _createBox: function (wrapper, left, top, width, height, word, color) {
+        _createBox: function(wrapper, left, top, width, height, word, color) {
             var lineHeight = height,
                 paddingTop = 0,        
                 wordW = this._getWordsWidth(word.title);
@@ -156,7 +156,7 @@
          * @param round:   base被分割之后两部分的最大差，为了避免每部分太大或太小
          * @param 返回值:  包含num个分界点的数组
          */
-        _randRange: function (base, num, round) {        
+        _randRange: function(base, num, round) {        
             var center = base / num,
                 min = center * (1 - round),
                 max = center * (1 + round),
@@ -173,7 +173,7 @@
         /*
          * 每次绘制box时获取color列表中下一个颜色值
          */
-        _getNextColor: function () {
+        _getNextColor: function() {
             var color = this.options.colors[this.colorPos % this.options.colors.length];
             this.colorPos++;
             return color;
@@ -182,7 +182,7 @@
         /*
          * 获取指定字体大小的word的宽度，根据该宽度和 box 宽度判断是否分行
          */
-        _getWordsWidth: function (word) {
+        _getWordsWidth: function(word) {
             if ($('#get_ww').size() < 1) {
                 $('<div id="get_ww" style="display:block;visibility:hidden;font-size:'+this.$wrapper.css('font-size')+'px"><span></span></div>').appendTo('body');
             }
@@ -193,7 +193,7 @@
         /*
          * 随机排列数组元素
          */
-        _randArray: function (array) {
+        _randArray: function(array) {
             var clone = array.slice(),          
                 ret = [], 
                 rand;
@@ -211,16 +211,16 @@
         /*
          * 绑定窗口大小改变事件
          */
-        _bindListener: function () {
+        _bindListener: function() {
             if (!this.options.isFixedWidth) {
                 var _this = this, 
                     timer = null;
-                $(window).bind('resize', function () {     
+                $(window).bind('resize', function() {     
                     if (timer) {
                         clearTimeout(window.timer);
                         timer = null;
                     }           
-                    timer = setTimeout(function () {
+                    timer = setTimeout(function() {
                         // 响应式 wordbox 根据父级元素宽度和高度的变化来改变自身的宽度和高度，重新绘制
                         if (_this.$wrapper.width() != _this.$wrapper.parent().width() || 
                             _this.$wrapper.height() != _this.$wrapper.parent().height()) {
@@ -244,7 +244,7 @@
 
     window.WordBox = WordBox;
 
-    $.fn.wordbox = function (options) {
+    $.fn.wordbox = function(options) {
 
         var instance = new WordBox(this, options); 
 
