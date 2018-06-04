@@ -1,0 +1,40 @@
+{
+  "name": "wordbox",
+  "version": "1.0.0",
+  "description": "jquery.wordbox.js makes it easy to create category tags and classify labels.\r ##Demo\r *[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/demo/index.html)*",
+  "main": "dist/wordbox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "set NODE_ENV=development && webpack-dev-server --hot --open",
+    "publish": "NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dodoroy/wordbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dodoroy/wordbox/issues"
+  },
+  "homepage": "https://github.com/dodoroy/wordbox#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-loader": "^2.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^0.4.0",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
