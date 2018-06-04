@@ -1,11 +1,11 @@
 ## About
 jquery.wordbox.js makes it easy to create category tags and classify labels.
 ##Demo
-*[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/demo/index.html)*
+*[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/test/index.html)*
 
 
-![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/demo/pic1.png)
-![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/demo/pic2.png)
+![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/test/pic1.png)
+![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/test/pic2.png)
 ## Usage
 1.Include jQuery and jquery.wordbox.js
 
