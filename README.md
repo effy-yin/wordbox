@@ -1,17 +1,19 @@
 ## About
 jquery.wordbox.js makes it easy to create category tags and classify labels.
 ##Demo
-*[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/test/index.html)*
+*[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/examples/index.html)*
 
 
-![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/test/pic1.png)
-![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/test/pic2.png)
+![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/examples/pic1.png)
+![screen](https://raw.github.com/dodoroy/jquery.wordbox.js/master/examples/pic2.png)
 ## Usage
-1.Include jQuery and jquery.wordbox.js
+1.Include wordbox.css, jQuery and wordbox.js
 
 ```html
+<link rel="stylesheet" href="wordbox.css" />
+
 <script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="jquery.wordbox.js"></script>
+<script type="text/javascript" src="wordbox.js"></script>
 ```
 2.Create a HTML tag to hold the wordbox
 
@@ -24,10 +26,16 @@ jquery.wordbox.js makes it easy to create category tags and classify labels.
 $("#wordbox").wordbox({
     /*options*/
 });
+
+or
+
+new Effy.WordBox('#wordbox', {
+    /*options*/
+});
 ```
 
 ## Options
-To customize jquery.wordbox.js, simply pass in an options object:
+To customize wordbox.js, simply pass in an options object:
 ```JavaScript
     var titles = ['JavaScript', 'CSS', 'HTML', 'HTML5', 'SVG', 'PHP', 'Python', 'Shell', 'WebGL'];
     var words = [];
