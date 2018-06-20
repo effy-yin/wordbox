@@ -1,5 +1,5 @@
 ## About
-jquery.wordbox.js makes it easy to create category tags and classify labels.
+wordbox.js makes it easy to create category tags and classify labels.
 ##Demo
 *[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/examples/index.html)*
 
