@@ -1,5 +1,4 @@
 $(function() {
-    console.log(WordBox);
 
     var titles = ['JavaScript', 'CSS', 'HTML', 'HTML5', 'SVG', 'PHP', 'Python', 'Shell', 'WebGL', '呜呜呜啦啦啦哇哇哇哈哈哈'];
     var words = [];
@@ -15,7 +14,7 @@ $(function() {
 
     // responsive
     // 响应式wordbox需要有外层嵌套div    
-    var wb1 = new WordBox.WordBox('#box-responsive', {
+    var wb1 = new Effy.WordBox('#box-responsive', {
         isLead: false,          //是否包含“全部”分类  
         leadWord: null,
         words: words,

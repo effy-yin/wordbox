@@ -1,6 +1,5 @@
 
 const path = require('path');
-const webpack = require('webpack'); //to access built-in plugins
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -11,7 +10,7 @@ const config = {
     output: {        
         path: path.resolve(__dirname, 'dist'),
         filename: 'wordbox.js',
-        library: 'WordBox',
+        library: 'Effy',
         libraryTarget: 'umd'
     },
     externals: {
@@ -24,14 +23,12 @@ const config = {
                 MiniCssExtractPlugin.loader,//'style-loader',
                 'css-loader'
             ]
-        }, 
-        {
+        }, {
             enforce: 'pre',
             test: /\.js$/,                 
             exclude: /(node_modules)/,
             loader: 'eslint-loader'
-        },
-        {
+        }, {
             test: /\.js$/,
             exclude: /(node_modules)/,
             loader: 'babel-loader'
