@@ -1,32 +1,33 @@
 module.exports = {
-    root: true,
-    "env": { 
-        "es6": true,
+    "env": {
         "browser": true,
-        "node": true
+        "commonjs": true,
+        "es6": true
     },
+    "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },    
+        "sourceType": "module"
+    },
     "globals": {
         "$": true,        
     },
-    "extends": "eslint:recommended",
     "rules": {
-        // enable additional rules
-        // "linebreak-style": ["error", "unix"],
-        // "quotes": ["error", "double"],
-        // "semi": ["error", "always"],
-
-        // // override default options for rules from base configurations
-        // "comma-dangle": ["error", "always"],
-        // "no-cond-assign": ["error", "always"],
-        // 'arrow-parents': 0,
-        // // disable rules from base configurations
-         "no-console": "off",
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "no-console": "off"
     }
-}
+};

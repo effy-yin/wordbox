@@ -1,7 +1,7 @@
 
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = {
     mode: 'production',
@@ -10,7 +10,7 @@ const config = {
     output: {        
         path: path.resolve(__dirname, 'dist'),
         filename: 'wordbox.js',
-        library: 'Effy',
+        library: 'dodoroy',
         libraryTarget: 'umd'
     },
     externals: {
@@ -18,10 +18,11 @@ const config = {
     },
     module: {
         rules: [{            
-            test: /\.css$/,
+            test: /\.scss$/,
             use: [
-                MiniCssExtractPlugin.loader,//'style-loader',
-                'css-loader'
+                MiniCssExtractPlugin.loader,// style-loader creates style nodes from JS strings
+                'css-loader', // translates CSS into CommonJS
+                'sass-loader' // compiles Sass to CSS, using Node Sass by default
             ]
         }, {
             enforce: 'pre',
@@ -40,9 +41,9 @@ const config = {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: 'wordbox.css',
-            chunkFilename: "[id].css"
-          }),
+            chunkFilename: '[id].css'
+        }),
     ]
-};
+}
 
-module.exports = config;
+module.exports = config

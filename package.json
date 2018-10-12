@@ -1,5 +1,5 @@
 {
-    "name": "wordbox",
+    "name": "@dodoroy/wordbox",
     "version": "1.3.0",
     "description": "jquery.wordbox.js makes it easy to create category tags and classify labels.\r ##Demo\r *[Demo](http://htmlpreview.github.io/?https://github.com/dodoroy/jquery.wordbox.js/blob/master/demo/index.html)*",
     "main": "dist/wordbox.js",
@@ -12,7 +12,7 @@
         "url": "git+https://github.com/dodoroy/wordbox.git"
     },
     "keywords": [],
-    "author": "",
+    "author": "Effy",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/dodoroy/wordbox/issues"
@@ -27,6 +27,8 @@
         "eslint": "^4.19.1",
         "eslint-loader": "^2.0.0",
         "mini-css-extract-plugin": "^0.4.0",
+        "node-sass": "^4.9.3",
+        "sass-loader": "^7.1.0",
         "style-loader": "^0.20.3",
         "webpack": "^4.5.0",
         "webpack-cli": "^2.0.14"
