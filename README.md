@@ -29,7 +29,7 @@ $("#wordbox").wordbox({
 
 or
 
-new Effy.WordBox('#wordbox', {
+new dodoroy.WordBox('#wordbox', {
     /*options*/
 });
 ```
